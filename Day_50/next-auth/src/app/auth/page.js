@@ -14,10 +14,10 @@ function AuthPage() {
         <span>Đăng nhập</span>
         <GoogleSignInButton />
         <GithubSignInButton />
-        <blockquote>
+        <p>
           "Đăng nhập để liên hệ, bình luận và khám phá nhiều tính năng thú vị
           khác."
-        </blockquote>
+        </p>
       </div>
     </div>
   );
