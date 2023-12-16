@@ -13,21 +13,13 @@ export const middleware = (request) => {
     const urlLogin = `${request.nextUrl.origin}/${page?.value}`;
     return NextResponse.redirect(urlLogin);
   }
-  const response = NextResponse.next();
-  // if (currentLogin === "github") {
-  //   // response.cookies.set({
-  //   //   name: "githubLogged",
-  //   //   value: "logged",
-  //   // });
-  //   response.headers.set("x-api-key", "provider=github");
-  // }
-  // if (currentLogin === "google") {
-  //   // response.cookies.set({
-  //   //   name: "googleLogged",
-  //   //   value: "logged",
-  //   // });
-  //   response.headers.set("x-api-key", "provider=google");
-  // }
+  const response = NextResponse.next({
+    request: {
+      headers: new Headers(request.headers),
+    },
+  });
+
+  return response;
 };
 
 export const config = {

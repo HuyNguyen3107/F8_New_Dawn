@@ -11,14 +11,20 @@ import "./profile.scss";
 import { Divider } from "@nextui-org/react";
 import Note from "./components/Note";
 import UserInfo from "./components/UserInfo";
-import { headers } from "next/headers";
+
+import { cookies } from "next/headers";
 
 async function ProfilePage() {
   const session = await getServerSession(authOptions);
   if (!session) redirect("/auth");
-  console.log(session);
-  const headerList = headers();
-  console.log(headerList);
+
+  const cookieList = cookies();
+
+  const currentLogin = cookieList.get("currentLogin");
+  const googleImage = cookieList.get("googleImage");
+  const googleName = cookieList.get("googleName");
+  const githubImage = cookieList.get("githubImage");
+  const githubName = cookieList.get("githubName");
 
   return (
     <div className="profile">
@@ -27,11 +33,60 @@ async function ProfilePage() {
           <UserInfo session={session} />
           <div className="auth-btn">
             <div className="login-group">
-              <GithubLoginButton />
-              <GoogleLoginButton />
+              {/* {githubImage && githubName ? (
+                <div className="google-user">
+                  <img src={`${githubImage}`} alt="" />
+                  <span>{githubName}</span>
+                </div>
+              ) : (
+                <GithubLoginButton
+                  currentLogin={currentLogin}
+                  session={currentLogin.value === "github" ? session : ""}
+                  githubImage={githubImage ? githubImage : ""}
+                  githubName={githubName ? githubName : ""}
+                  googleImage={googleImage ? googleImage : ""}
+                  googleName={googleName ? googleName : ""}
+                />
+              )} */}
+              <GithubLoginButton
+                currentLogin={currentLogin}
+                session={session}
+                githubImage={githubImage ? githubImage : ""}
+                githubName={githubName ? githubName : ""}
+                googleImage={googleImage ? googleImage : ""}
+                googleName={googleName ? googleName : ""}
+              />
+              {/* {googleImage && googleName ? (
+                <div className="google-user">
+                  <img src={`${googleImage}`} alt="" />
+                  <span>{googleName}</span>
+                </div>
+              ) : (
+                <GoogleLoginButton
+                  currentLogin={currentLogin}
+                  session={currentLogin.value === "google" ? session : ""}
+                  googleImage={googleImage ? googleImage : ""}
+                  googleName={googleName ? googleName : ""}
+                  githubImage={githubImage ? githubImage : ""}
+                  githubName={githubName ? githubName : ""}
+                />
+              )} */}
+              <GoogleLoginButton
+                currentLogin={currentLogin}
+                session={session}
+                googleImage={googleImage ? googleImage : ""}
+                googleName={googleName ? googleName : ""}
+                githubImage={githubImage ? githubImage : ""}
+                githubName={githubName ? githubName : ""}
+              />
             </div>
             <div className="rest">
-              <SignOutButton />
+              <SignOutButton
+                githubImage={githubImage}
+                githubName={githubName}
+                googleImage={googleImage}
+                googleName={googleName}
+              />
             </div>
           </div>
         </div>
