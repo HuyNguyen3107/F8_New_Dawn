@@ -9,25 +9,22 @@ import {
 } from "@/components/AuthButton/AuthButton";
 import "./profile.scss";
 import { Divider } from "@nextui-org/react";
+import Note from "./components/Note";
+import UserInfo from "./components/UserInfo";
+import { headers } from "next/headers";
 
 async function ProfilePage() {
   const session = await getServerSession(authOptions);
   if (!session) redirect("/auth");
-  console.log(session.user);
-  console.log("oklllllll");
+  console.log(session);
+  const headerList = headers();
+  console.log(headerList);
+
   return (
     <div className="profile">
       <div>
         <div>
-          <div className="user-info">
-            <div className="user-img">
-              <img src={session.user.image} alt="" />
-            </div>
-            <div className="user-detail">
-              <span className="user-name">{session.user.name}</span>
-              <span className="user-email">{session.user.email}</span>
-            </div>
-          </div>
+          <UserInfo session={session} />
           <div className="auth-btn">
             <div className="login-group">
               <GithubLoginButton />
@@ -44,10 +41,7 @@ async function ProfilePage() {
         <span>Bạn chưa xem bài viết nào</span>
         <Divider />
       </div>
-      <div className="note">
-        <span>© 2023 Huy portfolio</span>
-        <p>Xin chào, mình là Huy, đây là trang cá nhân của mình.</p>
-      </div>
+      <Note />
     </div>
   );
 }

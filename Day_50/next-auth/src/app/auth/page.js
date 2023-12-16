@@ -1,4 +1,3 @@
-"use client";
 import React from "react";
 import "./auth.scss";
 import {
@@ -6,14 +5,7 @@ import {
   GoogleSignInButton,
 } from "@/components/AuthButton/AuthButton";
 
-import { getCookie, hasCookie } from "cookies-next";
-import { useRouter } from "next/navigation";
-
 function AuthPage() {
-  // const router = useRouter();
-  // if (hasCookie("page") && hasCookie("isLogin")) {
-  //   router.push(`/${getCookie("page")}`);
-  // }
   return (
     <div className="auth">
       <span>© 2023 Huy portfolio</span>
