@@ -161,8 +161,12 @@ const AddNodeOnEdgeDrop = ({ nodes: nodesGet, edges: edgesGet, nodeId }) => {
   );
 };
 
-export default ({ nodes, edges, nodeId }) => (
-  <ReactFlowProvider>
-    <AddNodeOnEdgeDrop nodes={nodes} edges={edges} nodeId={nodeId} />
-  </ReactFlowProvider>
-);
+function MindmapFlow({ nodes, edges, nodeId }) {
+  return (
+    <ReactFlowProvider>
+      <AddNodeOnEdgeDrop nodes={nodes} edges={edges} nodeId={nodeId} />
+    </ReactFlowProvider>
+  );
+}
+
+export default MindmapFlow;
