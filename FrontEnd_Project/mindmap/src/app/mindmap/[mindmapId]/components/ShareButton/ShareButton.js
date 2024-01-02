@@ -23,18 +23,18 @@ function ShareButton() {
   const pathname = usePathname();
   const myMindmapId = pathname.slice(9);
   const formRef = useRef();
-  const myMindmap = mindmaps?.find(
-    (mindmap) => myMindmapId === mindmap.mindmapId
-  );
+  const [canSave, setCanSave] = useState("");
 
   const getValueForm = async (formValue) => {
     const { title, description, shareImg } = formValue;
     const mindmapList = JSON.parse(localStorage.getItem("mindmaps"));
     const userEmail = localStorage.getItem("userEmail");
+    const shareMode = localStorage.getItem("shareMode");
     const newMindmaps = mindmapList?.map((mindmap) => {
       if (mindmap.mindmapId === myMindmapId) {
         return {
           ...mindmap,
+          shareMode,
           title,
           description,
           shareImg,
@@ -46,18 +46,21 @@ function ShareButton() {
       id: userEmail,
       mindmaps: newMindmaps,
     };
-    const response = await fetch(`${mindmapApi}/${userEmail}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(userUpdated),
-    });
-    if (response.ok) {
-      localStorage.setItem("title", title);
-      localStorage.setItem("description", description);
-      localStorage.setItem("shareImg", shareImg);
-      notifySuccess("Lưu chia sẻ thành công");
+    if (canSave === "can") {
+      const response = await fetch(`${mindmapApi}/${userEmail}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userUpdated),
+      });
+      if (response.ok) {
+        localStorage.setItem("title", title);
+        localStorage.setItem("description", description);
+        localStorage.setItem("shareImg", shareImg);
+        notifySuccess("Lưu chia sẻ thành công");
+      }
+      setCanSave("");
     }
   };
 
@@ -179,6 +182,7 @@ function ShareButton() {
                   onPress={onClose}
                   onClick={(e) => {
                     e.preventDefault();
+                    setCanSave("can");
                     handleShare();
                   }}
                 >

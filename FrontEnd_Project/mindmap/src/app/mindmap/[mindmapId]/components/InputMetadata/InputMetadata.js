@@ -35,10 +35,22 @@ function InputMetadata() {
     document.cookie = `mindmapList=${localStorage.getItem("mindmaps")}`;
     document.cookie = `userEmail=${localStorage.getItem("userEmail")}`;
     document.cookie = `myMindmapId=${pathname.slice(9)}`;
-    buttonRef.current.click();
+    //
+    if (e.target.className === "meta-title") {
+      document.title = e.target.value;
+      localStorage.setItem("title", e.target.value);
+    } else if (e.target.className === "meta-desc") {
+      localStorage.setItem("description", e.target.value);
+    }
   };
   return (
-    <form action={handleMetadata} ref={formRef}>
+    <form
+      action=""
+      ref={formRef}
+      onSubmit={(e) => {
+        e.preventDefault();
+      }}
+    >
       <input
         type="text"
         defaultValue={title ? title : "Mindmap chưa có tên"}
@@ -53,7 +65,7 @@ function InputMetadata() {
         className="meta-desc"
         onChange={handleChange}
       />
-      <button ref={buttonRef}></button>
+      {/* <button></button> */}
     </form>
   );
 }

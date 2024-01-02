@@ -5,6 +5,7 @@ import ControlButton from "./components/ControlButton/ControlButton";
 import MindmapFlowContainer from "./components/MindmapFlowContainer/MindmapFlowContainer";
 import { cookies } from "next/headers";
 import { notFound } from "next/navigation";
+import MindmapShareContainer from "./components/MindmapShareContainer/MindmapShareContainer";
 
 const mindmapApi = "https://d3mq8y-8080.csb.app/users";
 
@@ -90,7 +91,11 @@ async function MindmapDetailPage({ params }) {
           {userEmail && checkAuthUser ? <ControlButton /> : null}
         </div>
         <div className="mindmap-flow">
-          <MindmapFlowContainer />
+          {user.id === userEmail.value ? (
+            <MindmapFlowContainer />
+          ) : (
+            <MindmapShareContainer userId={user.id} />
+          )}
         </div>
       </div>
     </section>

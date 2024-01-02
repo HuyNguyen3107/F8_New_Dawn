@@ -7,6 +7,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 function Logged({ name, email }) {
   useEffect(() => {
+    localStorage.setItem("userEmail", email);
     document.cookie = `email=${email}`;
   }, []);
   return (
@@ -18,6 +19,7 @@ function Logged({ name, email }) {
         href={"/api/auth/logout"}
         className="btn-logout"
         onClick={() => {
+          localStorage.clear();
           document.cookie = `email=${email};expires=${new Date().toUTCString()}`;
         }}
       >
