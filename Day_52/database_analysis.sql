@@ -12,9 +12,6 @@ CREATE TABLE IF NOT EXISTS courses (
 );
 
 ALTER TABLE courses 
-ADD COLUMN description TEXT;
-
-ALTER TABLE courses 
 RENAME COLUMN detail to content;
 
 ALTER TABLE courses 
@@ -50,32 +47,32 @@ VALUES (2, 'Dang Ngoc Son', 'This is bio 2', NOW(), NOW());
 INSERT INTO teachers(id, name, bio, created_at, updated_at)
 VALUES (3, 'Tran Cong Luc', 'This is bio 3', NOW(), NOW());
 
-INSERT INTO courses(id, name, price, content, teacher_id, active, created_at, updated_at, description)
-VALUES (1, 'Javascript', 1000, 'This is JS pro courses', 1, 1, NOW(), NOW(), 'This is JS course desc');
+INSERT INTO courses(id, name, price, content, teacher_id, active, created_at, updated_at)
+VALUES (1, 'Javascript', 1000, 'This is JS pro courses', 1, 1, NOW(), NOW());
 
-INSERT INTO courses(id, name, price, content, teacher_id, active, created_at, updated_at, description)
-VALUES (2, 'PHP', 2000, 'This is PHP pro courses', 1, 1, NOW(), NOW(), 'This is PHP course desc');
+INSERT INTO courses(id, name, price, content, teacher_id, active, created_at, updated_at)
+VALUES (2, 'PHP', 2000, 'This is PHP pro courses', 1, 1, NOW(), NOW());
 
-INSERT INTO courses(id, name, price, content, teacher_id, active, created_at, updated_at, description)
-VALUES (3, 'Laravel', 3000, 'This is Laravel pro courses', 1, 1, NOW(), NOW(), 'This is Laravel course desc');
+INSERT INTO courses(id, name, price, content, teacher_id, active, created_at, updated_at)
+VALUES (3, 'Laravel', 3000, 'This is Laravel pro courses', 1, 1, NOW(), NOW());
 
-INSERT INTO courses(id, name, price, content, teacher_id, active, created_at, updated_at, description)
-VALUES (4, 'HTML&CSS', 4000, 'This is HTML&CSS pro courses', 2, 1, NOW(), NOW(), 'This is HTML&CSS course desc');
+INSERT INTO courses(id, name, price, content, teacher_id, active, created_at, updated_at)
+VALUES (4, 'HTML&CSS', 4000, 'This is HTML&CSS pro courses', 2, 1, NOW(), NOW());
 
-INSERT INTO courses(id, name, price, content, teacher_id, active, created_at, updated_at, description)
-VALUES (5, 'ReactJS', 5000, 'This is ReactJS pro courses', 2, 1, NOW(), NOW(), 'This is ReactJS course desc');
+INSERT INTO courses(id, name, price, content, teacher_id, active, created_at, updated_at)
+VALUES (5, 'ReactJS', 5000, 'This is ReactJS pro courses', 2, 1, NOW(), NOW());
 
-INSERT INTO courses(id, name, price, content, teacher_id, active, created_at, updated_at, description)
-VALUES (6, 'NodeJS', 6000, 'This is NodeJS pro courses', 2, 1, NOW(), NOW(), 'This is NodeJS course desc');
+INSERT INTO courses(id, name, price, content, teacher_id, active, created_at, updated_at)
+VALUES (6, 'NodeJS', 6000, 'This is NodeJS pro courses', 2, 1, NOW(), NOW());
 
-INSERT INTO courses(id, name, price, content, teacher_id, active, created_at, updated_at, description)
-VALUES (7, 'NextJS', 7000, 'This is NextJS pro courses', 3, 1, NOW(), NOW(), 'This is NextJS course desc');
+INSERT INTO courses(id, name, price, content, teacher_id, active, created_at, updated_at)
+VALUES (7, 'NextJS', 7000, 'This is NextJS pro courses', 3, 1, NOW(), NOW());
 
-INSERT INTO courses(id, name, price, content, teacher_id, active, created_at, updated_at, description)
-VALUES (8, 'SASS', 8000, 'This is SASS pro courses', 3, 1, NOW(), NOW(), 'This is SASS course desc');
+INSERT INTO courses(id, name, price, content, teacher_id, active, created_at, updated_at)
+VALUES (8, 'SASS', 8000, 'This is SASS pro courses', 3, 1, NOW(), NOW());
 
-INSERT INTO courses(id, name, price, content, teacher_id, active, created_at, updated_at, description)
-VALUES (9, 'VueJS', 9000, 'This is VueJS pro courses', 3, 1, NOW(), NOW(), 'This is VueJS course desc');
+INSERT INTO courses(id, name, price, content, teacher_id, active, created_at, updated_at)
+VALUES (9, 'VueJS', 9000, 'This is VueJS pro courses', 3, 1, NOW(), NOW());
 
 ALTER TABLE courses
 ADD CONSTRAINT courses_name_and_price_unique UNIQUE (name, price);
