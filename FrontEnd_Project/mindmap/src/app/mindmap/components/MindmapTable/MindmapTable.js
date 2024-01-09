@@ -96,6 +96,8 @@ function MindmapTable() {
         body: JSON.stringify(newUser),
       });
       if (response.ok) {
+        const data = await response.json();
+        localStorage.setItem("mindmaps", JSON.stringify(data.mindmaps));
         notifySuccess("Xóa thành công");
         mutate(`${mindmapApi}/${user?.email}`);
       }

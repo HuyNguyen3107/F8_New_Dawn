@@ -7,14 +7,14 @@ import { handleMetadata } from "./action";
 
 const mindmapApi = "https://d3mq8y-8080.csb.app/users";
 
-function InputMetadata() {
+function InputMetadata({ userId }) {
   const { user } = useUser();
   const fetcher = (url) => fetch(url).then((response) => response.json());
   const {
     data: userMindmap,
     isLoading,
     error,
-  } = useSWR(`${mindmapApi}/${user?.email}`, fetcher);
+  } = useSWR(`${mindmapApi}/${userId}`, fetcher);
   const pathname = usePathname();
   const formRef = useRef();
   const buttonRef = useRef();

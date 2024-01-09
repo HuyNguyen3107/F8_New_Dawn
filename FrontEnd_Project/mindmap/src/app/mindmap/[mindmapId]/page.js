@@ -87,14 +87,16 @@ async function MindmapDetailPage({ params }) {
     <section id="mindmap-detail">
       <div>
         <div className="mindmap-control">
-          <InputMetadata />
+          <InputMetadata userId={user?.id ? user?.id : userEmail?.value} />
           {userEmail && checkAuthUser ? <ControlButton /> : null}
         </div>
         <div className="mindmap-flow">
-          {user.id === userEmail.value ? (
+          {user?.id === userEmail?.value ? (
             <MindmapFlowContainer />
           ) : (
-            <MindmapShareContainer userId={user.id} />
+            <MindmapShareContainer
+              userId={user?.id ? user?.id : userEmail?.value}
+            />
           )}
         </div>
       </div>
