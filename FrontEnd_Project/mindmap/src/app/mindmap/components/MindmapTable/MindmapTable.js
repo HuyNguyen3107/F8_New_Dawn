@@ -44,7 +44,7 @@ function MindmapTable() {
       const mindmap = mindmaps?.find(
         (mindmap) => mindmap.mindmapId === e.target.className
       );
-
+      console.log(mindmaps, mindmap);
       localStorage.setItem("shareMode", mindmap.shareMode);
       localStorage.setItem("title", mindmap.title);
       localStorage.setItem("description", mindmap.description);
@@ -56,6 +56,7 @@ function MindmapTable() {
       const mindmap = mindmaps?.find(
         (mindmap) => mindmap.mindmapId === e.target.id
       );
+      console.log(mindmaps, mindmap);
       localStorage.setItem("shareMode", mindmap.shareMode);
       localStorage.setItem("title", mindmap.title);
       localStorage.setItem("description", mindmap.description);

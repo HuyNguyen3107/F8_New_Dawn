@@ -48,8 +48,12 @@ function ControlButton() {
           edges: JSON.parse(localStorage.getItem("edges")),
           nodeId: localStorage.getItem("nodeId"),
           shareMode: "private",
-          title: "Mindmap không có tên",
-          description: "Chưa có mô tả",
+          title: localStorage.getItem("title")
+            ? localStorage.getItem("title")
+            : "Mindmap không có tên",
+          description: localStorage.getItem("description")
+            ? localStorage.getItem("description")
+            : "Chưa có mô tả",
           shareImg:
             "https://images2.thanhnien.vn/zoom/600_315/528068263637045248/2023/6/6/onepiece-1686048581557705028090-14-0-852-1600-crop-16860486106902104191106.jpg",
         };
@@ -81,8 +85,12 @@ function ControlButton() {
             edges: JSON.parse(localStorage.getItem("edges")),
             nodeId: localStorage.getItem("nodeId"),
             shareMode: "private",
-            title: "Mindmap không có tên",
-            description: "Chưa có mô tả",
+            title: localStorage.getItem("title")
+              ? localStorage.getItem("title")
+              : "Mindmap không có tên",
+            description: localStorage.getItem("description")
+              ? localStorage.getItem("description")
+              : "Chưa có mô tả",
             shareImg:
               "https://images2.thanhnien.vn/zoom/600_315/528068263637045248/2023/6/6/onepiece-1686048581557705028090-14-0-852-1600-crop-16860486106902104191106.jpg",
           },

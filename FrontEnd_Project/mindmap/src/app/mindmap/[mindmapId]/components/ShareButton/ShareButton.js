@@ -23,7 +23,7 @@ function ShareButton() {
   const pathname = usePathname();
   const myMindmapId = pathname.slice(9);
   const formRef = useRef();
-  const [canSave, setCanSave] = useState("");
+  const canSave = useRef(false);
 
   const getValueForm = async (formValue) => {
     const { title, description, shareImg } = formValue;
@@ -46,7 +46,8 @@ function ShareButton() {
       id: userEmail,
       mindmaps: newMindmaps,
     };
-    if (canSave === "can") {
+    if (canSave.current) {
+      console.log(userUpdated);
       const response = await fetch(`${mindmapApi}/${userEmail}`, {
         method: "PATCH",
         headers: {
@@ -60,7 +61,7 @@ function ShareButton() {
         localStorage.setItem("shareImg", shareImg);
         notifySuccess("Lưu chia sẻ thành công");
       }
-      setCanSave("");
+      canSave.current = false;
     }
   };
 
@@ -182,7 +183,7 @@ function ShareButton() {
                   onPress={onClose}
                   onClick={(e) => {
                     e.preventDefault();
-                    setCanSave("can");
+                    canSave.current = true;
                     handleShare();
                   }}
                 >
