@@ -1,0 +1,60 @@
+<h1>Danh sách người dùng</h1>
+<a href="/users/add" class="btn btn-success mb-4">Nếu bạn muốn thêm người dùng mới hãy nhấp vào đây :3</a>
+<% if (msg?.length) { %>
+    <div class="alert alert-success mt-2">
+        <%= msg %>
+    </div>
+    <% } %>
+        <form class="mb-3" action="">
+            <div class="row">
+                <div class="col-3">
+                    <select name="status" class="form-select">
+                        <option value="all">All</option>
+                        <option value="active">Active</option>
+                        <option value="inactive">Inactive</option>
+                    </select>
+                </div>
+                <div class="col-7">
+                    <input type="search" name="keyword" placeholder="Keyword..." class="form-control">
+                </div>
+                <div class="col-2 d-grid">
+                    <button class="btn btn-primary">Search</button>
+                </div>
+            </div>
+        </form>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th width="5%">STT</th>
+                    <th>Tên</th>
+                    <th>Email</th>
+                    <th>Trạng thái</th>
+                    <th width="5%">Sửa</th>
+                    <th width="5%">Xóa</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% users.forEach((user, index)=> { %>
+                    <tr>
+                        <td>
+                            <%= index+1 %>
+                        </td>
+                        <td>
+                            <%= user.name %>
+                        </td>
+                        <td>
+                            <%= user.email %>
+                        </td>
+                        <td>
+                            <%= user.status ? 'Kích hoạt' : 'Chưa kích hoạt' %>
+                        </td>
+                        <td><a href="/users/edit/<%= user.id %>" class="btn btn-warning">Sửa</a></td>
+                        <td>
+                            <form action="/users/delete/<%= user.id %>" method="post">
+                                <button class="btn btn-danger">Xóa</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <% }) %>
+            </tbody>
+        </table>
