@@ -5,20 +5,23 @@ const mindmapApi = "https://d3mq8y-8080.csb.app/users";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import ShareButton from "../ShareButton/ShareButton";
 import { useEffect } from "react";
+import { usePathname } from "next/navigation";
 function ControlButton() {
   const { user } = useUser();
+  const pathname = usePathname();
+  const myMindmapId = pathname.slice(9);
   const handleSave = async () => {
     const isUserExist = localStorage.getItem("userExist");
     if (isUserExist) {
       const mindmaps = JSON.parse(localStorage.getItem("mindmaps"));
-      const mindmapId = localStorage.getItem("mindmapId");
+      // const mindmapId = localStorage.getItem("mindmapId");
       const checkMindmap = mindmaps?.find((mindmap) => {
-        return mindmapId + "" === mindmap.mindmapId + "";
+        return myMindmapId + "" === mindmap?.mindmapId + "";
       });
       let newMindmaps;
       if (checkMindmap) {
         newMindmaps = Array.from(mindmaps)?.map((mindmap) => {
-          if (mindmapId + "" === mindmap.mindmapId + "") {
+          if (myMindmapId + "" === mindmap?.mindmapId + "") {
             return {
               ...mindmap,
               nodes: JSON.parse(localStorage.getItem("nodes")),
@@ -42,7 +45,7 @@ function ControlButton() {
         });
       } else {
         const newMindmap = {
-          mindmapId: localStorage.getItem("mindmapId"),
+          mindmapId: myMindmapId,
           createdAt: localStorage.getItem("createdAt"),
           nodes: JSON.parse(localStorage.getItem("nodes")),
           edges: JSON.parse(localStorage.getItem("edges")),
@@ -79,7 +82,7 @@ function ControlButton() {
         id: user?.email,
         mindmaps: [
           {
-            mindmapId: localStorage.getItem("mindmapId"),
+            mindmapId: myMindmapId,
             createdAt: localStorage.getItem("createdAt"),
             nodes: JSON.parse(localStorage.getItem("nodes")),
             edges: JSON.parse(localStorage.getItem("edges")),
@@ -107,7 +110,7 @@ function ControlButton() {
       if (response.ok) {
         notifySuccess("Lưu thành công");
         localStorage.setItem("userExist", "exist");
-        localStorage.setItem("mindmaps", JSON.stringify(mindmapData.mindmaps));
+        localStorage.setItem("mindmaps", JSON.stringify(mindmapData?.mindmaps));
       }
     }
   };

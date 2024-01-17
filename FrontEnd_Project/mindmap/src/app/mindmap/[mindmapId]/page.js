@@ -22,18 +22,21 @@ const getUsers = async () => {
 export const generateMetadata = async ({ params }) => {
   const { mindmapId } = params;
   const users = await getUsers();
-  const user = users?.find((user) => {
-    const checkMindmap = user?.mindmaps?.find(
+  let mindmap = {};
+  if (users?.length) {
+    const user = users?.find((user) => {
+      const checkMindmap = user?.mindmaps?.find(
+        (mindmap) => mindmap?.mindmapId === mindmapId
+      );
+      if (checkMindmap) {
+        return true;
+      }
+      return false;
+    });
+    mindmap = user?.mindmaps?.find(
       (mindmap) => mindmap?.mindmapId === mindmapId
     );
-    if (checkMindmap) {
-      return true;
-    }
-    return false;
-  });
-  const mindmap = user?.mindmaps?.find(
-    (mindmap) => mindmap?.mindmapId === mindmapId
-  );
+  }
   return {
     title: mindmap?.title ? mindmap?.title : "Mindmap không có tên",
     description: mindmap?.description
@@ -56,24 +59,27 @@ async function MindmapDetailPage({ params }) {
   const cookieList = cookies();
   const userEmail = cookieList.get("email");
   let checkAuthUser = true;
-  const user = users?.find((user) => {
-    const checkMindmap = user?.mindmaps?.find(
-      (mindmap) => mindmap?.mindmapId === mindmapId
-    );
-    if (checkMindmap) {
-      return true;
-    }
-    return false;
-  });
+  let user = null;
+  if (users?.length) {
+    user = users?.find((user) => {
+      const checkMindmap = user?.mindmaps?.find(
+        (mindmap) => mindmap?.mindmapId === mindmapId
+      );
+      if (checkMindmap) {
+        return true;
+      }
+      return false;
+    });
+  }
   if (user) {
     const mindmap = user?.mindmaps?.find(
       (mindmap) => mindmap?.mindmapId === mindmapId
     );
     if (userEmail) {
-      if (mindmap.shareMode === "private" && user.id !== userEmail.value) {
+      if (mindmap?.shareMode === "private" && user?.id !== userEmail?.value) {
         notFound();
-      } else if (mindmap.shareMode === "public") {
-        if (user.id !== userEmail.value) {
+      } else if (mindmap?.shareMode === "public") {
+        if (user?.id !== userEmail?.value) {
           checkAuthUser = false;
         }
       }

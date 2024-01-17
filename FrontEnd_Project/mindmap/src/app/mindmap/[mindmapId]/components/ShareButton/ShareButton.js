@@ -31,7 +31,7 @@ function ShareButton() {
     const userEmail = localStorage.getItem("userEmail");
     const shareMode = localStorage.getItem("shareMode");
     const newMindmaps = mindmapList?.map((mindmap) => {
-      if (mindmap.mindmapId === myMindmapId) {
+      if (mindmap?.mindmapId === myMindmapId) {
         return {
           ...mindmap,
           shareMode,
@@ -47,7 +47,6 @@ function ShareButton() {
       mindmaps: newMindmaps,
     };
     if (canSave.current) {
-      console.log(userUpdated);
       const response = await fetch(`${mindmapApi}/${userEmail}`, {
         method: "PATCH",
         headers: {
@@ -59,6 +58,7 @@ function ShareButton() {
         localStorage.setItem("title", title);
         localStorage.setItem("description", description);
         localStorage.setItem("shareImg", shareImg);
+        localStorage.setItem("mindmaps", JSON.stringify(newMindmaps));
         notifySuccess("Lưu chia sẻ thành công");
       }
       canSave.current = false;
@@ -66,7 +66,7 @@ function ShareButton() {
   };
 
   const handleShare = async () => {
-    const checkSaved = mindmaps.find(
+    const checkSaved = mindmaps?.find(
       (mindmap) => mindmap.mindmapId === myMindmapId
     );
     if (!checkSaved) {
@@ -78,7 +78,7 @@ function ShareButton() {
         const mindmapList = JSON.parse(localStorage.getItem("mindmaps"));
         const userEmail = localStorage.getItem("userEmail");
         const newMindmaps = mindmapList?.map((mindmap) => {
-          if (mindmap.mindmapId === myMindmapId) {
+          if (mindmap?.mindmapId === myMindmapId) {
             return {
               ...mindmap,
               shareMode: "private",
@@ -98,6 +98,7 @@ function ShareButton() {
           body: JSON.stringify(userUpdated),
         });
         if (response.ok) {
+          localStorage.setItem("mindmaps", JSON.stringify(newMindmaps));
           notifySuccess("Lưu chia sẻ thành công");
         }
       }

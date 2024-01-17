@@ -10,7 +10,7 @@ const PublicShare = forwardRef(function PublicShare(
   const pathname = usePathname();
   const mindmapId = pathname.slice(9);
   const myMindmap = mindmaps?.find(
-    (mindmap) => mindmapId === mindmap.mindmapId
+    (mindmap) => mindmapId === mindmap?.mindmapId
   );
   const titleRef = useRef();
   const descRef = useRef();

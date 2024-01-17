@@ -42,30 +42,28 @@ function MindmapTable() {
     ) {
       const mindmaps = userMindmap?.mindmaps;
       const mindmap = mindmaps?.find(
-        (mindmap) => mindmap.mindmapId === e.target.className
+        (mindmap) => mindmap?.mindmapId === e.target.className
       );
-      console.log(mindmaps, mindmap);
-      localStorage.setItem("shareMode", mindmap.shareMode);
-      localStorage.setItem("title", mindmap.title);
-      localStorage.setItem("description", mindmap.description);
-      localStorage.setItem("shareImg", mindmap.shareImg);
+      localStorage.setItem("shareMode", mindmap?.shareMode);
+      localStorage.setItem("title", mindmap?.title);
+      localStorage.setItem("description", mindmap?.description);
+      localStorage.setItem("shareImg", mindmap?.shareImg);
       localStorage.setItem("mindmaps", JSON.stringify(mindmaps));
       router.push(`${pathname}/${e.target.className}`);
     } else if (e.target.className.includes("pi-file-edit")) {
       const mindmaps = userMindmap?.mindmaps;
       const mindmap = mindmaps?.find(
-        (mindmap) => mindmap.mindmapId === e.target.id
+        (mindmap) => mindmap?.mindmapId === e.target.id
       );
-      console.log(mindmaps, mindmap);
-      localStorage.setItem("shareMode", mindmap.shareMode);
-      localStorage.setItem("title", mindmap.title);
-      localStorage.setItem("description", mindmap.description);
-      localStorage.setItem("shareImg", mindmap.shareImg);
+      localStorage.setItem("shareMode", mindmap?.shareMode);
+      localStorage.setItem("title", mindmap?.title);
+      localStorage.setItem("description", mindmap?.description);
+      localStorage.setItem("shareImg", mindmap?.shareImg);
       localStorage.setItem("mindmaps", JSON.stringify(mindmaps));
       router.push(`${pathname}/${e.target.id}`);
     } else if (e.target.className.includes("pi-trash")) {
-      const newMindmaps = userMindmap.mindmaps?.filter((mindmap) => {
-        if (mindmap.mindmapId === e.target.getAttribute("data-id")) {
+      const newMindmaps = userMindmap?.mindmaps?.filter((mindmap) => {
+        if (mindmap?.mindmapId === e.target.getAttribute("data-id")) {
           return false;
         }
         return true;
@@ -79,7 +77,7 @@ function MindmapTable() {
   };
 
   const handleDelete = async () => {
-    if (newUser.mindmaps.length === 0) {
+    if (newUser?.mindmaps?.length === 0) {
       const response = await fetch(`${mindmapApi}/${userMindmap.id}`, {
         method: "DELETE",
       });
@@ -89,7 +87,7 @@ function MindmapTable() {
         mutate(`${mindmapApi}/${user?.email}`);
       }
     } else {
-      const response = await fetch(`${mindmapApi}/${userMindmap.id}`, {
+      const response = await fetch(`${mindmapApi}/${userMindmap?.id}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -98,7 +96,7 @@ function MindmapTable() {
       });
       if (response.ok) {
         const data = await response.json();
-        localStorage.setItem("mindmaps", JSON.stringify(data.mindmaps));
+        localStorage.setItem("mindmaps", JSON.stringify(data?.mindmaps));
         notifySuccess("Xóa thành công");
         mutate(`${mindmapApi}/${user?.email}`);
       }
@@ -136,20 +134,25 @@ function MindmapTable() {
           {userMindmap
             ? userMindmap?.mindmaps?.map((mindmap) => {
                 return (
-                  <tr key={mindmap.mindmapId} onClick={handleEdit}>
+                  <tr key={mindmap?.mindmapId} onClick={handleEdit}>
                     <td>
                       <input type="checkbox" />
                     </td>
                     <td>
-                      <p className={mindmap.mindmapId}>{mindmap.title}</p>
-                      <p className={mindmap.mindmapId}>{mindmap.description}</p>
+                      <p className={mindmap?.mindmapId}>{mindmap?.title}</p>
+                      <p className={mindmap?.mindmapId}>
+                        {mindmap?.description}
+                      </p>
                     </td>
-                    <td className={mindmap.mindmapId}>{mindmap.createdAt}</td>
+                    <td className={mindmap?.mindmapId}>{mindmap?.createdAt}</td>
                     <td>
-                      <i className="pi pi-file-edit" id={mindmap.mindmapId}></i>
+                      <i
+                        className="pi pi-file-edit"
+                        id={mindmap?.mindmapId}
+                      ></i>
                       <i
                         className="pi pi-trash"
-                        data-id={mindmap.mindmapId}
+                        data-id={mindmap?.mindmapId}
                         onClick={onOpen}
                       ></i>
                     </td>

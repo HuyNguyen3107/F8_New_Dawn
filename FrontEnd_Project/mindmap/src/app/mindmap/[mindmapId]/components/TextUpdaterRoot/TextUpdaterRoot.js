@@ -11,7 +11,7 @@ function TextUpdaterRoot({ id, data, isConnectable }) {
   const handleChange = (id, value) => {
     setNodes((nodes) => {
       return nodes.map((node) => {
-        if (node.id === id) {
+        if (node?.id === id) {
           return {
             ...node,
             data: { ...node.data, label: value },
@@ -24,8 +24,8 @@ function TextUpdaterRoot({ id, data, isConnectable }) {
 
   const handleBlur = (id) => {
     setNodes((nodes) => {
-      return nodes.map((node) => {
-        if (node.id === id) {
+      return nodes?.map((node) => {
+        if (node?.id === id) {
           return {
             ...node,
             data: { ...node.data, isChange: false },

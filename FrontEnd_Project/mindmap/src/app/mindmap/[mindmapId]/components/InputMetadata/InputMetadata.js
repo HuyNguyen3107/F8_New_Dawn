@@ -22,7 +22,7 @@ function InputMetadata({ userId }) {
   let description;
   if (!isLoading) {
     const mindmap = userMindmap?.mindmaps?.find((mindmap) => {
-      if (mindmap.mindmapId === pathname.slice(9)) {
+      if (mindmap?.mindmapId === pathname.slice(9)) {
         return true;
       }
     });
