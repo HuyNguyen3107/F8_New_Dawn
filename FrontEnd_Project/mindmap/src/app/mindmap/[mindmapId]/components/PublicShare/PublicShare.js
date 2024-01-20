@@ -44,6 +44,7 @@ const PublicShare = forwardRef(function PublicShare(
           type="text"
           placeholder="Liên kết chia sẻ..."
           defaultValue={window.location.href}
+          disabled
         />
       </div>
       <div>
