@@ -1,0 +1,31 @@
+<h1>Đăng nhập</h1>
+<% if (errorMsg?.length) { %>
+    <div class="alert alert-danger mt-2">
+        <%= errorMsg %>
+    </div>
+    <% } %>
+        <% if (successMsg?.length) { %>
+            <div class="alert alert-success mt-2">
+                <%= successMsg %>
+            </div>
+            <% } %>
+                <form class="mb-4" method="post">
+                    <div class="mb-4">
+                        <label for="email" class="mb-2">Email</label>
+                        <input type="text" name="email" id="email" class="form-control" placeholder="Your Email..."
+                            value="<%= req?.olds?.email %>">
+                        <span class="mt-2 text-danger">
+                            <%= req?.errors?.email %>
+                        </span>
+                    </div>
+                    <div class="mb-4">
+                        <label for="password">Password</label>
+                        <input type="password" name="password" id="password" class="form-control"
+                            placeholder="Your Password...">
+                        <span class="mt-2 text-danger">
+                            <%= req?.errors?.password %>
+                        </span>
+                    </div>
+                    <button class="btn btn-primary">Đăng nhập</button>
+                    <a href="/auth/register" class="btn btn-primary">Đăng ký</a>
+                </form>

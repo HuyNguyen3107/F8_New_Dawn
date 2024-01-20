@@ -1,0 +1,9 @@
+<h1>Home page</h1>
+<% if (successMsg?.length) { %>
+    <div class="alert alert-success mt-2">
+        <%= successMsg %>
+    </div>
+    <% } %>
+        <h2 class="mt-4">Chào bạn: <%= req?.session?.userInfo?.name %>
+        </h2>
+        <a href="/logout" class="btn btn-danger mt-2">Đăng xuất</a>
