@@ -4,7 +4,38 @@ const { User, Device } = require("../models/index");
 const bcrypt = require("bcrypt");
 
 module.exports = {
-  index: (req, res, next) => {
+  index: async (req, res, next) => {
+    let user = await User.findOne({
+      where: {
+        email: {
+          [Op.iLike]: `%${req.session?.userInfo?.email}%`,
+        },
+        status: true,
+      },
+      include: {
+        model: Device,
+        as: "devices",
+      },
+    });
+    user = user?.dataValues;
+    const device = user?.devices?.find((device) => {
+      return device.user_agent === req.get("user-agent");
+    });
+    try {
+      await Device.update(
+        {
+          browser: device.browser,
+        },
+        {
+          where: {
+            id: device.id,
+            user_agent: req.get("user-agent"),
+          },
+        }
+      );
+    } catch (e) {
+      next(e);
+    }
     const msg = req.flash("msg");
     req.olds = req?.session?.userInfo;
     res.render("account/index", {
@@ -70,7 +101,38 @@ module.exports = {
 
     return res.redirect("/account");
   },
-  changePassword: (req, res, next) => {
+  changePassword: async (req, res, next) => {
+    let user = await User.findOne({
+      where: {
+        email: {
+          [Op.iLike]: `%${req.session?.userInfo?.email}%`,
+        },
+        status: true,
+      },
+      include: {
+        model: Device,
+        as: "devices",
+      },
+    });
+    user = user?.dataValues;
+    const device = user?.devices?.find((device) => {
+      return device.user_agent === req.get("user-agent");
+    });
+    try {
+      await Device.update(
+        {
+          browser: device.browser,
+        },
+        {
+          where: {
+            id: device.id,
+            user_agent: req.get("user-agent"),
+          },
+        }
+      );
+    } catch (e) {
+      next(e);
+    }
     const msg = req.flash("msg");
     res.render("account/password", {
       req,
@@ -198,6 +260,24 @@ module.exports = {
       },
     });
     user = user.dataValues;
+    const device = user?.devices?.find((device) => {
+      return device.user_agent === req.get("user-agent");
+    });
+    try {
+      await Device.update(
+        {
+          browser: device.browser,
+        },
+        {
+          where: {
+            id: device.id,
+            user_agent: req.get("user-agent"),
+          },
+        }
+      );
+    } catch (e) {
+      next(e);
+    }
     res.render("account/device", {
       user,
       msg,

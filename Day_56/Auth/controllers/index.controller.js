@@ -2,7 +2,38 @@ const { Op, where } = require("sequelize");
 const { User, Device } = require("../models/index");
 
 module.exports = {
-  index: (req, res, next) => {
+  index: async (req, res, next) => {
+    let user = await User.findOne({
+      where: {
+        email: {
+          [Op.iLike]: `%${req.session?.userInfo?.email}%`,
+        },
+        status: true,
+      },
+      include: {
+        model: Device,
+        as: "devices",
+      },
+    });
+    user = user?.dataValues;
+    const device = user?.devices?.find((device) => {
+      return device.user_agent === req.get("user-agent");
+    });
+    try {
+      await Device.update(
+        {
+          browser: device.browser,
+        },
+        {
+          where: {
+            id: device.id,
+            user_agent: req.get("user-agent"),
+          },
+        }
+      );
+    } catch (e) {
+      next(e);
+    }
     const successMsg = req.flash("successMsg");
     res.render("index", {
       req,
