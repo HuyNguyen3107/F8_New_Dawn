@@ -1,5 +1,5 @@
 const { Op, where } = require("sequelize");
-const { User } = require("../models/index");
+const { User, Device } = require("../models/index");
 
 module.exports = async (req, res, next) => {
   if (!req.session?.userInfo) {
@@ -11,9 +11,16 @@ module.exports = async (req, res, next) => {
           [Op.iLike]: `%${req.session?.userInfo?.email}%`,
         },
       },
+      include: {
+        model: Device,
+        as: "devices",
+      },
     });
     user = user?.dataValues;
-    if (!user.status) {
+    const device = user?.devices?.find((device) => {
+      return device.user_agent === req.get("user-agent");
+    });
+    if (!user.status || !device?.status) {
       return res.redirect("/auth/login");
     }
   }

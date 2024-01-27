@@ -29,6 +29,14 @@
                     <%= req?.errors?.password %>
                 </span>
             </div>
+            <div class="mb-4">
+                <label class="mb-2">Nhập lại mật khẩu mới</label>
+                <input type="password" name="passwordRetype" class="form-control"
+                    placeholder="Retype Your Password ...">
+                <span class="mt-2 text-danger">
+                    <%= req?.errors?.passwordRetype %>
+                </span>
+            </div>
             <button class="btn btn-primary">Đăng Ký</button>
             <a href="/auth/login" class="btn btn-warning">Quay lại</a>
         </form>

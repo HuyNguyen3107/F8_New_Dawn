@@ -1,0 +1,57 @@
+<h1 class="mb-4">Device</h1>
+
+<% if (msg?.length) { %>
+    <div class="alert alert-success mt-2">
+        <%= msg %>
+    </div>
+    <% } %>
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th width="5%">STT</th>
+                    <th>Browser</th>
+                    <th>Operating System</th>
+                    <th>Device Type</th>
+                    <th>Status</th>
+                    <th>Login Time</th>
+                    <th>Last 0perating Time</th>
+                    <th width="5%">Logout</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% user.devices.forEach((device, index)=> { %>
+                    <tr>
+                        <td>
+                            <%= index+1 %>
+                        </td>
+                        <td>
+                            <%= device.browser %>
+                        </td>
+                        <td>
+                            <%= device.operating_system %>
+                        </td>
+                        <td>
+                            <%= device.device_type %>
+                        </td>
+                        <td>
+                            <%= device.status ? "Logged" : "Logged out" %>
+                        </td>
+                        <td>
+                            <%= device.created_at %>
+                        </td>
+                        <td>
+                            <%= device.updated_at %>
+                        </td>
+                        <td>
+                            <form action="/account/logout/<%= device.id %>" method="post"
+                                onsubmit="return confirm('Are you sure?')">
+                                <button class="btn btn-danger">Logout</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <% }) %>
+            </tbody>
+        </table>
+
+        <a href="/account" class="btn btn-warning">Return</a>

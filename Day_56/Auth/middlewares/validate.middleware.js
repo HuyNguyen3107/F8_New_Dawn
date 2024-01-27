@@ -10,7 +10,7 @@ module.exports = (req, res, next) => {
       return body;
     } catch (e) {
       const errors = Object.fromEntries(
-        e.inner.map((item) => {
+        e?.inner?.map((item) => {
           return [item.path, item.message];
         })
       );

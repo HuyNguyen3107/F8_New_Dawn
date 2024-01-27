@@ -1,5 +1,5 @@
 const { Op, where } = require("sequelize");
-const { User } = require("../models/index");
+const { User, Device } = require("../models/index");
 
 module.exports = {
   index: (req, res, next) => {
@@ -10,6 +10,18 @@ module.exports = {
     });
   },
   logout: async (req, res) => {
+    let user = await User.findOne({
+      where: {
+        email: {
+          [Op.iLike]: `%${req.session?.userInfo?.email}%`,
+        },
+        status: true,
+      },
+      include: {
+        model: Device,
+        as: "devices",
+      },
+    });
     await User.update(
       {
         status: false,
@@ -22,6 +34,25 @@ module.exports = {
         },
       }
     );
+    user = user?.dataValues;
+    const device = user?.devices?.find((device) => {
+      return device.user_agent === req.get("user-agent");
+    });
+    try {
+      await Device.update(
+        {
+          status: false,
+        },
+        {
+          where: {
+            id: device.id,
+            user_agent: req.get("user-agent"),
+          },
+        }
+      );
+    } catch (e) {
+      next(e);
+    }
     delete req.session.userInfo;
     req.flash("successMsg", "Đăng xuất thành công");
     return res.redirect("/auth/login");

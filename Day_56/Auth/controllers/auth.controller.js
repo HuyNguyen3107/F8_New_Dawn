@@ -1,7 +1,9 @@
 const bcrypt = require("bcrypt");
 const { string } = require("yup");
 const { Op, where } = require("sequelize");
-const { User } = require("../models/index");
+const { User, Device } = require("../models/index");
+const DeviceDetector = require("device-detector-js");
+const deviceDetector = new DeviceDetector();
 
 module.exports = {
   index: (req, res, next) => {
@@ -33,7 +35,12 @@ module.exports = {
               [Op.iLike]: `%${body.email}%`,
             },
           },
+          include: {
+            model: Device,
+            as: "devices",
+          },
         });
+        const userInstance = user;
         if (user) {
           user = user?.dataValues;
           const result = await bcrypt.compare(body.password, user.password);
@@ -52,6 +59,34 @@ module.exports = {
                 },
               }
             );
+            const userAgent = req.get("user-agent");
+            const device = deviceDetector.parse(userAgent);
+            const checkDevice = userInstance.devices.find((device) => {
+              return device.user_agent === req.get("user-agent");
+            });
+            if (checkDevice) {
+              await Device.update(
+                {
+                  status: true,
+                },
+                {
+                  where: {
+                    id: checkDevice.id,
+                    user_agent: req.get("user-agent"),
+                  },
+                }
+              );
+            } else {
+              const deviceInstance = await Device.create({
+                browser: device.client.name,
+                operating_system: device.os.name,
+                device_type: device.device.type,
+                status: true,
+                user_agent: req.get("user-agent"),
+              });
+              await userInstance.addDevices(deviceInstance);
+            }
+
             req.flash("successMsg", "Đăng nhập thành công");
             const userInfo = {
               name: user.name,
@@ -112,6 +147,18 @@ module.exports = {
           }
         )
         .required("Mật khẩu bắt buộc phải nhập"),
+      passwordRetype: string()
+        .test(
+          "validate-password",
+          "Mật khẩu nhập lại không chính xác",
+          (value) => {
+            if (value === req.body.password) {
+              return true;
+            }
+            return false;
+          }
+        )
+        .required("Mật khẩu bắt buộc phải nhập lại"),
     };
 
     const body = await req.validate(req.body, rule);
@@ -124,6 +171,7 @@ module.exports = {
         email: body.email,
         password: body.password,
       });
+
       req.flash("successMsg", "Đăng ký tài khoản thành công");
       return res.redirect("/auth/login");
     } else {

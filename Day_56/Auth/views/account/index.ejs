@@ -1,0 +1,33 @@
+<h1>Account</h1>
+
+<% if (msg?.length) { %>
+    <div class="alert alert-success mt-2">
+        <%= msg %>
+    </div>
+    <% } %>
+
+        <form class="mb-4" method="post">
+            <div class="mb-4">
+                <label for="name" class="mb-2">Name</label>
+                <input type="text" name="name" id="name" class="form-control" placeholder="Your Name..."
+                    value="<%= req?.olds?.name %>">
+                <span class="mt-2 text-danger">
+                    <%= req?.errors?.name %>
+                </span>
+            </div>
+            <div class="mb-4">
+                <label for="email" class="mb-2">Email</label>
+                <input type="text" name="email" id="email" class="form-control" placeholder="Your Email..."
+                    value="<%= req?.olds?.email %>">
+                <span class="mt-2 text-danger">
+                    <%= req?.errors?.email %>
+                </span>
+            </div>
+            <button class="btn btn-primary">Thay đổi</button>
+        </form>
+
+        <div class="mt-4">
+            <a href="/account/change-password" class="btn btn-warning">Đổi mật khẩu</a>
+            <a href="/account/manage-device" class="btn btn-info">Quản lý thiết bị</a>
+            <a href="/" class="btn btn-danger">Về bờ</a>
+        </div>
