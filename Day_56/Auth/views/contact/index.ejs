@@ -1,0 +1,37 @@
+<h1>SEND EMAIL</h1>
+
+<% if (msg?.length) { %>
+    <div class="alert alert-success mt-2">
+        <%= msg %>
+    </div>
+    <% } %>
+
+        <form class="mb-4" method="post">
+            <div class="mb-4">
+                <label for="email" class="mb-2">Email</label>
+                <input type="text" name="email" id="email" class="form-control" placeholder="Your Email..."
+                    value="<%= req?.olds?.email %>">
+                <span class="mt-2 text-danger">
+                    <%= req?.errors?.email %>
+                </span>
+            </div>
+            <div class="mb-4">
+                <label for="subject" class="mb-2">Subject</label>
+                <input type="text" name="subject" id="subject" class="form-control" placeholder="Your Subject..."
+                    value="<%= req?.olds?.subject %>">
+                <span class="mt-2 text-danger">
+                    <%= req?.errors?.subject %>
+                </span>
+            </div>
+            <div class="mb-4">
+                <label for="message" class="mb-2">Message</label>
+                <textarea type="text" name="message" id="message" class="form-control" placeholder="Your Message ..."
+                    value="<%= req?.olds?.message %>"></textarea>
+                <span class="mt-2 text-danger">
+                    <%= req?.errors?.message %>
+                </span>
+            </div>
+            <button class="btn btn-primary">SEND</button>
+            <a href="/contact/histories" class="btn btn-dark">Histories</a>
+            <a href="/account" class="btn btn-danger">Thui</a>
+        </form>

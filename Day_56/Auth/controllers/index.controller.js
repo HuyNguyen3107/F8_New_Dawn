@@ -1,5 +1,7 @@
 const { Op, where } = require("sequelize");
-const { User, Device } = require("../models/index");
+const { User, Device, History } = require("../models/index");
+const path = require("path");
+const sendMail = require("../utils/mail");
 
 module.exports = {
   index: async (req, res, next) => {
@@ -87,5 +89,36 @@ module.exports = {
     delete req.session.userInfo;
     req.flash("successMsg", "Đăng xuất thành công");
     return res.redirect("/auth/login");
+  },
+  checkMail: async (req, res, next) => {
+    const infoEmail = req.query;
+    await History.update(
+      {
+        status: true,
+      },
+      {
+        where: {
+          uuid: {
+            [Op.iLike]: `%${infoEmail.uuid}%`,
+          },
+          email: {
+            [Op.iLike]: `%${infoEmail.email}%`,
+          },
+        },
+      }
+    );
+    const options = {
+      root: path.join(__dirname) + "/../public/images",
+    };
+
+    const fileName = "f8.jpg";
+    res.set("Content-type", "image/jpg");
+    res.sendFile(fileName, options, function (err) {
+      if (err) {
+        console.error("Error sending file:", err);
+      } else {
+        console.log("Sent:", fileName);
+      }
+    });
   },
 };

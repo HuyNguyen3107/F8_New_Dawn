@@ -2,6 +2,9 @@ const { Op, where } = require("sequelize");
 const { User, Device } = require("../models/index");
 
 module.exports = async (req, res, next) => {
+  if (req.url.includes("/check-mail")) {
+    return next();
+  }
   let user = await User.findOne({
     where: {
       email: {

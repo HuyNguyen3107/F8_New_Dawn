@@ -1,0 +1,53 @@
+<h1>Histories</h1>
+
+<% if (msg?.length) { %>
+    <div class="alert alert-success mt-2">
+        <%= msg %>
+    </div>
+    <% } %>
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th width="5%">STT</th>
+                    <th>To Email</th>
+                    <th>Subject</th>
+                    <th>Status</th>
+                    <th>Sending Time</th>
+                    <th width="5%">Detail</th>
+                    <th width="5%">Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% user.histories.forEach((history, index)=> { %>
+                    <tr>
+                        <td>
+                            <%= index+1 %>
+                        </td>
+                        <td>
+                            <%= history.email %>
+                        </td>
+                        <td>
+                            <%= history.subject %>
+                        </td>
+                        <td>
+                            <%= history.status ? "Watched" : "Not Seen" %>
+                        </td>
+                        <td>
+                            <%= history.created_at %>
+                        </td>
+                        <td>
+                            <a href="/contact/histories-detail/<%= history.uuid %>" class="btn btn-info">View Detail</a>
+                        </td>
+                        <td>
+                            <form action="/contact/delete-email/<%= history.uuid %>" method="post"
+                                onsubmit="return confirm('Are you sure?')">
+                                <button class="btn btn-danger">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <% }) %>
+            </tbody>
+        </table>
+
+        <a href="/contact" class="btn btn-warning">Return</a>
