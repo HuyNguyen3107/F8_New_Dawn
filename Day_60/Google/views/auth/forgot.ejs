@@ -1,0 +1,20 @@
+<div class="w-50 mx-auto">
+    <h1 class="text-center">Forgot Password</h1>
+    <% if (errorMsg?.length) { %>
+        <div class="alert alert-danger mt-2">
+            <%= errorMsg %>
+        </div>
+        <% } %>
+            <% if (successMsg?.length) { %>
+                <div class="alert alert-success mt-2">
+                    <%= successMsg %>
+                </div>
+                <% } %>
+                    <form class="mb-4" method="post">
+                        <div class="mb-4">
+                            <label for="email" class="mb-2">Email</label>
+                            <input type="text" name="email" id="email" class="form-control" placeholder="Your Email...">
+                        </div>
+                        <button class="btn btn-primary w-100">SUBMIT</button>
+                    </form>
+</div>

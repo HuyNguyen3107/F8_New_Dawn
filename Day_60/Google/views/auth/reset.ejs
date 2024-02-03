@@ -1,0 +1,26 @@
+<h1>Reset Your Password</h1>
+
+<% if (errorMsg?.length) { %>
+    <div class="alert alert-danger mt-2">
+        <%= errorMsg %>
+    </div>
+    <% } %>
+        <form class="mb-4" method="post">
+            <div class="mb-4">
+                <label for="password">New Password</label>
+                <input type="password" name="password" id="password" class="form-control"
+                    placeholder="Your Password...">
+                <span class="mt-2 text-danger">
+                    <%= req?.errors?.password %>
+                </span>
+            </div>
+            <div class="mb-4">
+                <label class="mb-2">Retype Your New Password</label>
+                <input type="password" name="passwordRetype" class="form-control"
+                    placeholder="Retype Your Password ...">
+                <span class="mt-2 text-danger">
+                    <%= req?.errors?.passwordRetype %>
+                </span>
+            </div>
+            <button class="btn btn-primary">Submit</button>
+        </form>
