@@ -1,0 +1,32 @@
+<h1>Quản lý vai trò</h1>
+
+<a href="/roles/add" class="btn btn-success mb-4">Nếu bạn muốn thêm vai trò mới hãy nhấp vào đây :3</a>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th width="5%">STT</th>
+            <th>Tên</th>
+            <th width="5%">Sửa</th>
+            <th width="5%">Xóa</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% roles.forEach((role, index)=> { %>
+            <tr>
+                <td>
+                    <%= index + 1 %>
+                </td>
+                <td>
+                    <%= role.name %>
+                </td>
+                <td><a href="/roles/edit/<%= role.id %>" class="btn btn-warning">Sửa</a></td>
+                <td>
+                    <form action="/roles/delete/<%= role.id %>" method="post"
+                        onsubmit="return confirm('Mọi sự ngu dốt đều sẽ phải trả giá')">
+                        <button class="btn btn-danger">Xóa</button>
+                    </form>
+                </td>
+            </tr>
+            <% }) %>
+    </tbody>
+</table>

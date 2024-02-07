@@ -1,0 +1,104 @@
+<h1>Sửa vai trò</h1>
+
+<% if (successMsg?.length) { %>
+    <div class="alert alert-success mt-2">
+        <%= successMsg %>
+    </div>
+    <% } %>
+
+        <form action="" method="post" class="d-flex align-items-center gap-2">
+            <select name="role" class="form-select mb-2">
+                <% roles.forEach(element=> { %>
+                    <option value="<%= element.id %>" <%=+element.id===+role.id ? "selected" : "" %>>
+                        <a href="/roles/edit/<%= element.id %>">
+                            <%= element.name %>
+                        </a>
+                    </option>
+                    <% }) %>
+            </select>
+            <button class="btn btn-primary ml-2">Change</button>
+        </form>
+
+        <form class="mb-4" method="post">
+            <div class="mb-4">
+                <label for="name" class="mb-2">Tên</label>
+                <input type="text" name="name" id="name" class="form-control" placeholder="Name..."
+                    value="<%= role?.name %>">
+                <span class="mt-2 text-danger">
+                    <%= req?.errors?.name %>
+                </span>
+            </div>
+            <div class="mb-4">
+                <label for="" class="mb-2">Quyền</label>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th width="20%">Chức năng</th>
+                            <th>Quyền</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                Quản lý người dùng
+                            </td>
+                            <td>
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <input type="checkbox" name="permissions" value="users.watch"
+                                            <%=permissions.includes("users.watch") ? "checked" : "" %>>
+                                        <label for="">Xem</label>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" name="permissions" value="users.add"
+                                            <%=permissions.includes("users.add") ? "checked" : "" %>>
+                                        <label for="">Thêm</label>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" name="permissions" value="users.edit"
+                                            <%=permissions.includes("users.edit") ? "checked" : "" %>>
+                                        <label for="">Sửa</label>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" name="permissions" value="users.delete"
+                                            <%=permissions.includes("users.delete") ? "checked" : "" %>>
+                                        <label for="">Xóa</label>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Quản lý vai trò
+                            </td>
+                            <td>
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <input type="checkbox" name="permissions" value="roles.watch"
+                                            <%=permissions.includes("roles.watch") ? "checked" : "" %>>
+                                        <label for="">Xem</label>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" name="permissions" value="roles.add"
+                                            <%=permissions.includes("roles.add") ? "checked" : "" %>>
+                                        <label for="">Thêm</label>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" name="permissions" value="roles.edit"
+                                            <%=permissions.includes("roles.edit") ? "checked" : "" %>>
+                                        <label for="">Sửa</label>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" name="permissions" value="roles.delete"
+                                            <%=permissions.includes("roles.delete") ? "checked" : "" %>>
+                                        <label for="">Xóa</label>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <button class="btn btn-primary">Lưu</button>
+            <a href="/roles" class="btn btn-danger">Thui</a>
+        </form>

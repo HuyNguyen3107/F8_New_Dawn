@@ -10,6 +10,7 @@ module.exports = {
     const error = req.flash("error");
     res.render("auth/login", {
       error,
+      layout: "auth/layout",
     });
   },
   register: (req, res, next) => {
@@ -17,6 +18,7 @@ module.exports = {
     res.render("auth/register", {
       req,
       errorMsg,
+      layout: "auth/layout",
     });
   },
   handleRegister: async (req, res, next) => {
@@ -111,6 +113,7 @@ module.exports = {
     res.render("auth/forgot", {
       errorMsg,
       successMsg,
+      layout: "auth/layout",
     });
   },
   handleForgotPassword: async (req, res, next) => {
@@ -182,6 +185,7 @@ module.exports = {
     res.render("auth/reset", {
       req,
       errorMsg,
+      layout: "auth/layout",
     });
   },
   handleResetPassword: async (req, res, next) => {

@@ -1,0 +1,38 @@
+<h1>Quản lý người dùng</h1>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th width="5%">STT</th>
+            <th>Tên</th>
+            <th>Email</th>
+            <th width="15%">Phân quyền</th>
+            <th width="5%">Sửa</th>
+            <th width="5%">Xóa</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% users.forEach((user, index)=> { %>
+            <tr>
+                <td>
+                    <%= index+1 %>
+                </td>
+                <td>
+                    <%= user.name %>
+                </td>
+                <td>
+                    <%= user.email %>
+                </td>
+                <td>
+                    <a href="/users/permission/<%= user.id %>" class="btn btn-success">Phân quyền</a>
+                </td>
+                <td><a href="#" class="btn btn-warning">Sửa</a></td>
+                <td>
+                    <form action="#" method="post" onsubmit="return confirm('Mọi sự ngu dốt đều sẽ phải trả giá')">
+                        <button class="btn btn-danger">Xóa</button>
+                    </form>
+                </td>
+            </tr>
+            <% }) %>
+    </tbody>
+</table>

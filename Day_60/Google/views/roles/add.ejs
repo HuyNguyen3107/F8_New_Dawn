@@ -1,0 +1,83 @@
+<h1>Thêm vai trò</h1>
+
+<% if (successMsg?.length) { %>
+    <div class="alert alert-success mt-2">
+        <%= successMsg %>
+    </div>
+    <% } %>
+
+        <form class="mb-4" method="post">
+            <div class="mb-4">
+                <label for="name" class="mb-2">Tên</label>
+                <input type="text" name="name" id="name" class="form-control" placeholder="Name..."
+                    value="<%= req?.olds?.name %>">
+                <span class="mt-2 text-danger">
+                    <%= req?.errors?.name %>
+                </span>
+            </div>
+            <div class="mb-4">
+                <label for="status" class="mb-2">Quyền</label>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th width="20%">Chức năng</th>
+                            <th>Quyền</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                Quản lý người dùng
+                            </td>
+                            <td>
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <input type="checkbox" name="permissions" value="users.watch">
+                                        <label for="">Xem</label>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" name="permissions" value="users.add">
+                                        <label for="">Thêm</label>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" name="permissions" value="users.edit">
+                                        <label for="">Sửa</label>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" name="permissions" value="users.delete">
+                                        <label for="">Xóa</label>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Quản lý vai trò
+                            </td>
+                            <td>
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <input type="checkbox" name="permissions" value="roles.watch">
+                                        <label for="">Xem</label>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" name="permissions" value="roles.add">
+                                        <label for="">Thêm</label>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" name="permissions" value="roles.edit">
+                                        <label for="">Sửa</label>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" name="permissions" value="roles.delete">
+                                        <label for="">Xóa</label>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <button class="btn btn-primary">Lưu</button>
+            <a href="/roles" class="btn btn-danger">Thui</a>
+        </form>

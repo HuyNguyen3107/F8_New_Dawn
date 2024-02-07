@@ -1,0 +1,35 @@
+<h1>Phân quyền</h1>
+
+<% if (msgSuccess?.length) { %>
+    <div class="alert alert-success mt-2">
+        <%= msgSuccess %>
+    </div>
+    <% } %>
+
+        <form class="mb-4" method="post">
+            <div class="mb-4">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th width="20%"></th>
+                            <th>Role</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% roles.forEach(role=> { %>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="roles" value="<%= role.id %>"
+                                        <%=userRoles.includes(role.id) ? "checked" : "" %>>
+                                </td>
+                                <td>
+                                    <%= role.name %>
+                                </td>
+                            </tr>
+                            <% }) %>
+                    </tbody>
+                </table>
+            </div>
+            <button class="btn btn-primary">Lưu</button>
+            <a href="/users" class="btn btn-danger">Thui</a>
+        </form>

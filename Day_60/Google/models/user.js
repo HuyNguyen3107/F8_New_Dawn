@@ -13,6 +13,16 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "provider_id",
         as: "provider",
       });
+      User.belongsToMany(models.Role, {
+        foreignKey: "user_id",
+        through: "users_roles",
+        as: "roles",
+      });
+      User.belongsToMany(models.Permission, {
+        foreignKey: "user_id",
+        through: "users_permissions",
+        as: "permissions",
+      });
     }
   }
   User.init(
