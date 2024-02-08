@@ -19,6 +19,7 @@ var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 const authRouter = require("./routes/auth");
 const roleRouter = require("./routes/role");
+const bankRouter = require("./routes/bank");
 
 var app = express();
 
@@ -57,6 +58,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
+app.use("/banking", bankRouter);
 app.use(validateMiddleware);
 app.use(indexMiddleware);
 app.use("/auth", authRouter);
