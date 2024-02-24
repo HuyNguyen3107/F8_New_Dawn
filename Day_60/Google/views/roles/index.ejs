@@ -1,6 +1,8 @@
 <h1>Quản lý vai trò</h1>
 
-<a href="/roles/add" class="btn btn-success mb-4">Nếu bạn muốn thêm vai trò mới hãy nhấp vào đây :3</a>
+<a href="/roles/add" class="<%= req.user.validate('roles.add') ? " btn btn-success mb-4" : "" %>">
+    <%= req.user.validate("roles.add") ? "Thêm vai trò" : "" %>
+</a>
 <table class="table table-bordered">
     <thead>
         <tr>

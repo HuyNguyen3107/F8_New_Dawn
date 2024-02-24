@@ -7,6 +7,7 @@ module.exports = {
     const users = await User.findAll();
     res.render("users/index", {
       users,
+      req,
     });
   },
   permission: async (req, res, next) => {
@@ -28,6 +29,7 @@ module.exports = {
       roles,
       userRoles,
       msgSuccess,
+      req,
     });
   },
   handlePermission: async (req, res, next) => {

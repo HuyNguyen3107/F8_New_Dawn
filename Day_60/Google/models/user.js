@@ -23,6 +23,10 @@ module.exports = (sequelize, DataTypes) => {
         through: "users_permissions",
         as: "permissions",
       });
+      User.hasMany(models.Link, {
+        foreignKey: "user_id",
+        as: "links",
+      });
     }
   }
   User.init(

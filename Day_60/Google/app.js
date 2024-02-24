@@ -14,12 +14,14 @@ const passportGoogle = require("./passports/passport.google");
 const authMiddleware = require("./middlewares/auth.middleware");
 const indexMiddleware = require("./middlewares/index.middleware");
 const validateMiddleware = require("./middlewares/validate.middleware");
+const permissionMiddleware = require("./middlewares/permission.middleware");
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 const authRouter = require("./routes/auth");
 const roleRouter = require("./routes/role");
 const bankRouter = require("./routes/bank");
+const linkRouter = require("./routes/link");
 
 var app = express();
 
@@ -63,9 +65,10 @@ app.use(validateMiddleware);
 app.use(indexMiddleware);
 app.use("/auth", authRouter);
 app.use(authMiddleware);
-app.use("/", indexRouter);
+app.use("/", permissionMiddleware(), indexRouter);
 app.use("/users", usersRouter);
 app.use("/roles", roleRouter);
+app.use("/links", linkRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

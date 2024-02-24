@@ -9,6 +9,7 @@ module.exports = {
     });
     res.render("roles/index", {
       roles,
+      req,
     });
   },
   add: (req, res, next) => {
@@ -16,6 +17,7 @@ module.exports = {
     res.render("roles/add", {
       req,
       successMsg,
+      req,
     });
   },
   handleAdd: async (req, res, next) => {

@@ -1,0 +1,32 @@
+<h1>Chỉnh sửa</h1>
+
+<% if (errorMsg?.length) { %>
+    <div class="alert alert-danger mt-2">
+        <%= errorMsg %>
+    </div>
+    <% } %>
+        <% if (successMsg?.length) { %>
+            <div class="alert alert-success mt-2">
+                <%= successMsg %>
+            </div>
+            <% } %>
+
+                <form class="mb-4" method="post">
+                    <div class="mb-4">
+                        <label for="link" class="mb-2">Liên kết mục tiêu</label>
+                        <input type="text" name="link" id="link" class="form-control" value="<%= link.original_link %>"
+                            disabled>
+                    </div>
+                    <div class="mb-4">
+                        <label for="shortened_link">Liên kết rút gọn</label>
+                        <input type="text" name="shortened_link" id="shortened_link" class="form-control"
+                            value="<%= link.shortened_link %>" disabled>
+                    </div>
+                    <div class="mb-4">
+                        <label for="password">Mật khẩu (tùy chọn)</label>
+                        <input type="password" name="password" id="password" class="form-control"
+                            placeholder="Password...">
+                    </div>
+                    <button class="btn btn-primary w-100 mb-4">Lưu lại</button>
+                    <a href="/links/manage" class="btn btn-danger w-100">Back</a>
+                </form>

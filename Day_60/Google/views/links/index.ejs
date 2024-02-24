@@ -1,0 +1,45 @@
+<h1>Rút gọn liên kết</h1>
+
+<% if (errorMsg?.length) { %>
+    <div class="alert alert-danger mt-2">
+        <%= errorMsg %>
+    </div>
+    <% } %>
+        <% if (successMsg?.length) { %>
+            <div class="alert alert-success mt-2">
+                <%= successMsg %>
+            </div>
+            <% } %>
+
+                <form class="mb-4" method="post">
+                    <div class="mb-4">
+                        <label for="link" class="mb-2">Liên kết</label>
+                        <input type="text" name="link" id="link" class="form-control" placeholder="Your Link...">
+                    </div>
+                    <div class="mb-4">
+                        <label for="password">Mật khẩu (tùy chọn)</label>
+                        <input type="password" name="password" id="password" class="form-control"
+                            placeholder="Password...">
+                    </div>
+                    <div class="mb-4">
+                        <input type="checkbox" name="save_redirect" id="save_redirect">
+                        <label for="save_redirect">Chuyển hướng an toàn (Tránh bị chặn bởi Facebook)</label>
+                    </div>
+                    <div class="mb-4">
+                        <input type="checkbox" name="change_id" id="change_id">
+                        <label for="change_id">Tùy chỉnh ID của liên kết</label>
+                    </div>
+                    <button class="btn btn-primary w-100">Rút gọn</button>
+                </form>
+
+                <form class="mb-4" method="post" <%=shortened.length ? "" : "hidden" %>>
+                    <div class="mb-4">
+                        <label for="shorten_url" class="mb-2">URL rút gọn của bạn</label>
+                        <input type="text" name="shorten_url" id="shorten_url" class="form-control"
+                            value="<%= shortened_link.length ? shortened_link[0] : "" %>" <%=change_id.length ? ""
+                            : "disabled" %>>
+                    </div>
+                    <button class="btn btn-danger w-100 mb-4" <%=change_id.length ? "" : "disabled" %>>Cập
+                        nhật</button>
+                    <a href="#" class="btn btn-success w-100">Chia sẻ</a>
+                </form>

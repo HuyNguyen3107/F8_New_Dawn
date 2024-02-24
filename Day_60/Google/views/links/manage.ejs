@@ -1,0 +1,56 @@
+<h1>Quản lý liên kết rút gọn</h1>
+
+<% if (successMsg?.length) { %>
+    <div class="alert alert-success mt-2">
+        <%= successMsg %>
+    </div>
+    <% } %>
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th width="5%">STT</th>
+                    <th>Liên kết rút gọn</th>
+                    <th>Liên kết gốc</th>
+                    <th width="10%">Mật khẩu</th>
+                    <th width="5%">Lượt truy cập</th>
+                    <th width="10%">Thời gian tạo</th>
+                    <th width="15%">Hành động</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% links.forEach((link, index)=> { %>
+                    <tr>
+                        <td>
+                            <%= index + 1 %>
+                        </td>
+                        <td>
+                            <%= link.shortened_link %>
+                        </td>
+                        <td>
+                            <%= link.original_link %>
+                        </td>
+                        <td>
+                            <% if (link.password) { %>
+                                <a href="/links/manage/password/<%= link.id %>" class="btn btn-warning">Xem</a>
+                                <% } %>
+                                    <%= link.password ? "" : "Không có" %>
+                        </td>
+                        <td>
+                            <%= link.access_times %>
+                        </td>
+                        <td>
+                            <%= link.created_at %>
+                        </td>
+                        <td class="d-flex flex-column">
+                            <a href="/links/manage/edit/<%= link.id %>" class="btn btn-primary mb-2">Edit</a>
+                            <a href="#" class="btn btn-success mb-2">Share</a>
+                            <form action="/links/manage/delete/<%= link.id %>" method="post"
+                                onsubmit="return confirm('Are you sure?')">
+                                <button class="btn btn-danger">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <% }) %>
+            </tbody>
+        </table>
