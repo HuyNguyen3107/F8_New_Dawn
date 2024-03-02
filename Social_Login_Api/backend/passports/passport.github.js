@@ -4,7 +4,7 @@ const GithubPassport = new Strategy(
   {
     clientID: "7010fef90cb669bfd643",
     clientSecret: "863b337dbf60b70544255368bcd198a3af6129de",
-    callbackURL: `http://localhost:3001/auth/github/callback`,
+    callbackURL: `https://frontend-kappa-sandy.vercel.app/auth/github/callback`,
     passReqToCallback: true,
     scope: ["profile", "user:email"],
   },

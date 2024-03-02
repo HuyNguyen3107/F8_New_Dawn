@@ -5,7 +5,7 @@ module.exports = new GoogleStrategy(
     clientID:
       "338343787360-7nnohf300asn9vku38oilij4vnl55q6s.apps.googleusercontent.com",
     clientSecret: "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",
-    callbackURL: `http://localhost:3001/auth/google/callback`,
+    callbackURL: `https://frontend-kappa-sandy.vercel.app/auth/google/callback`,
     passReqToCallback: true,
     scope: ["email", "profile"],
   },
