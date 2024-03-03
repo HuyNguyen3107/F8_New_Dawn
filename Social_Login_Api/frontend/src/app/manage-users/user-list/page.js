@@ -79,7 +79,7 @@ function UserList() {
                   <Link href={"/manage-users/user-information/" + user.id}>
                     Detail
                   </Link>
-                  <button>Edit</button>
+                  <Link href={"/manage-users/edit/" + user.id}>Edit</Link>
                   <button
                     id={user.id}
                     onClick={(e) => {
