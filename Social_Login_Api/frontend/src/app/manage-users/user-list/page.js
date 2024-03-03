@@ -6,8 +6,8 @@ import Link from "next/link";
 import "../../../assets/scss/userList.scss";
 
 function UserList() {
-  const [userList, setUserList] = useState();
-  const [idList, setIdList] = useState();
+  const [userList, setUserList] = useState([]);
+  const [idList, setIdList] = useState([]);
   const handleGetUserList = async (accessToken) => {
     const users = await getUsers(accessToken);
     if (users) {
@@ -80,7 +80,12 @@ function UserList() {
                     Detail
                   </Link>
                   <button>Edit</button>
-                  <button id={user.id} onClick={handleDelete(e)}>
+                  <button
+                    id={user.id}
+                    onClick={(e) => {
+                      handleDelete(e);
+                    }}
+                  >
                     Delete
                   </button>
                 </td>
@@ -88,7 +93,9 @@ function UserList() {
                   <input
                     type="checkbox"
                     id={user.id}
-                    onClick={handleCheck(e)}
+                    onChange={(e) => {
+                      handleCheck(e);
+                    }}
                   />
                 </td>
               </tr>

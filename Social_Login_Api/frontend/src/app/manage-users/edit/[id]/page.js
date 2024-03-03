@@ -1,12 +1,11 @@
 "use client";
 import React from "react";
 import { editUser } from "@/utils/user";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 function Edit({ params }) {
   const { id } = params;
-  const [name, setName] = useState();
-  const inputRef = useRef();
+  const [name, setName] = useState("");
   const handleChange = (e) => {
     setName(e.target.value);
   };
@@ -34,7 +33,9 @@ function Edit({ params }) {
         id="name"
         name="name"
         placeholder="Your Name"
-        onChange={handleChange(e)}
+        onChange={(e) => {
+          handleChange(e);
+        }}
       />
       <button>Change</button>
       <Link href="/manage-users/user-list">Back</Link>
