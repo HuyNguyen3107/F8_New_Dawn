@@ -19,21 +19,21 @@ const validateMiddleware = require("./middlewares/validate.middleware");
 const passportGoogle = require("./passports/passport.google");
 const passportGithub = require("./passports/passport.github");
 
-var corsOptions = {
-  origin: function (origin, callback) {
-    const env = process.env.NODE_ENV || "development";
-    if (env === "production") {
-      if (whitelist.indexOf(origin) !== -1) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-      return;
-    }
+// var corsOptions = {
+//   origin: function (origin, callback) {
+//     const env = process.env.NODE_ENV || "development";
+//     if (env === "production") {
+//       if (whitelist.indexOf(origin) !== -1) {
+//         callback(null, true);
+//       } else {
+//         callback(new Error("Not allowed by CORS"));
+//       }
+//       return;
+//     }
 
-    callback(null, true);
-  },
-};
+//     callback(null, true);
+//   },
+// };
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
@@ -77,7 +77,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 // app.use(validateMiddleware);
-app.use("/api", cors(corsOptions), apiRouter);
+app.use("/api", cors(), apiRouter);
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);

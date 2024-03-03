@@ -4,12 +4,10 @@ import { getUser } from "@/utils/user";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 
-function UserInfo() {
+function UserInfo({ params }) {
   const [user, setUser] = useState();
   const handleGetUser = async (accessToken) => {
-    const url = window.location.href;
-    const index = url.lastIndexOf("/");
-    const id = url.slice(index + 1);
+    const { id } = params;
     const user = await getUser(accessToken, id);
     if (user) {
       setUser(user);

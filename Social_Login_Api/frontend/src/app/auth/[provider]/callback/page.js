@@ -7,6 +7,7 @@ export default function Auth({ params }) {
   const { provider } = params;
   const getAccessToken = async () => {
     const accessToken = await handleCallback(provider, window.location.href);
+    console.log(accessToken);
     if (accessToken) {
       localStorage.setItem("accessToken", accessToken);
       window.location.href = "/";
