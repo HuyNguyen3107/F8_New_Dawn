@@ -114,7 +114,7 @@ module.exports = {
     return responses.errorResponse(res, 404, "User not exist");
   },
   deletes: async (req, res, next) => {
-    let idList = req.body;
+    let { idList } = req.body;
     if (!idList) {
       return responses.errorResponse(res, 400, "Bad request");
     }
